@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario con Resultados</title>
+    <style>
+        #contenedor {
+            display: flex;
+        }
+
+        #formulario {
+            background-color: rgb(0, 153, 255);
+            padding: 20px;
+            margin-right: 20px;
+            color: black;
+            width: 50%; /* Ajusta el ancho del formulario */
+        }
+
+        #resultados {
+            background-color: yellow;
+            border: 1px solid black;
+            margin-right: 20px;
+            padding: 20px;
+            width: 50%; /* Ajusta el ancho de los resultados */
+        }
+    </style>
+</head>
+<body>
+    <div id="contenedor">
+        <div id="formulario">
+            <h2>Ingrese sus datos</h2>
+            <form id="miFormulario">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required><br><br>
+                
+                <label for="edad">Edad:</label>
+                <input type="number" id="edad" name="edad" required><br><br>
+                
+                <label>Sexo:</label><br>
+                <input type="radio" id="masculino" name="sexo" value="masculino" required>
+                <label for="masculino">Masculino</label><br>
+                
+                <input type="radio" id="femenino" name="sexo" value="femenino">
+                <label for="femenino">Femenino</label><br>
+        
+                
+                <input type="button" value="Enviar" onclick="mostrarResultados()">
+            </form>
+        </div>
+
+        <div id="resultados">
+            <h2>Tus datos</h2>
+            <p id="nombreResultado"></p>
+            <p id="edadResultado"></p>
+            <p id="sexoResultado"></p>
+            <p id="mayorEdad"></p>
+        </div>
+    </div>
+
+    <script>
+        function mostrarResultados() {
+            var nombre = document.getElementById('nombre').value;
+            var edad = document.getElementById('edad').value;
+            var sexo;
+
+            var radios = document.getElementsByName('sexo');
+            for (var i = 0; i < radios.length; i++) {
+                if (radios[i].checked) {
+                    sexo = radios[i].value;
+                    break;
+                }
+            }
+
+            document.getElementById('nombreResultado').innerHTML = "<strong>Nombre:</strong> " + nombre;
+            document.getElementById('edadResultado').innerHTML = "<strong>Edad:</strong> " + edad;
+            document.getElementById('sexoResultado').innerHTML = "<strong>Sexo:</strong> " + sexo;
+
+            // Verificar si se ingresó la edad antes de mostrar si es mayor o menor de edad
+            var mensajeEdad = "";
+            if (edad !== "") {
+                if (edad >= 18) {
+                    mensajeEdad = "Eres mayor de edad.";
+                } else {
+                    mensajeEdad = "Eres menor de edad.";
+                }
+                document.getElementById('mayorEdad').innerHTML = "<strong>Estado:</strong> " + mensajeEdad;
+            } else {
+                document.getElementById('mayorEdad').innerHTML = ""; // Limpiar el mensaje si no se ingresa edad
+            }
+        }
+    </script>
+</body>
+</html>
+
